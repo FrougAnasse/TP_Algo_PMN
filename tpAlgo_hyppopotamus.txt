@@ -1,0 +1,103 @@
+
+
+
+
+Ex1
+
+(a
+/* programme hippopotamus
+* but : créer des hippopotames de combat
+* auteur: Anasse FROUG
+* date: 15/11/2021
+*/
+
+Classe Hippopotamus(name,weight,tiskSize)
+
+
+debut:
+
+	fonction swim()
+	debut
+		weight-> weight - 300
+	fin
+
+
+	fonction eat()
+	debut
+		weight-> weight + 1000
+	fin
+
+
+	fonction fight(Hippopotame)
+	debut
+		si tuskSize >= Hippopotame->tuskSize faire
+			afficher : "Victoire de " + name
+		sinon
+			afficher : "Victoire de " + Hippopotame->name
+		finsi
+	fin
+
+
+(b 	/* programme Afficher_objet
+	* but : afficher en string l'objet hippopotamus
+	* auteur : anasse froug
+	* date : 15/11/21
+	*/
+
+	fonction Afficher_objet()
+	Debut
+		return name + " est un hippopotame pesant " + weight + " dont les cornes font " + tuskSize 
+	Fin	
+Fin
+
+
+(c
+
+/*
+*
+*
+*/
+
+Programme test_combat
+a: hippopotamus // hippopotamus 1
+b: hippopotamus // hippopotamus 2
+
+debut
+
+	a->Hippopotamus('jack',3000,50)
+	b->Hippopotamus('fred',2500,75)
+
+	afficher a.fight(b)
+	// on obtient Victoire de fred
+
+Fin
+
+(d
+
+
+/*programme Cycle_de_vie
+*but : simuler la croissance d'un hippopotame dans son cycle de vie normal
+*auteur : Anasse froug
+*date ; 15/11/21
+*/
+Programe Cycle_de_vie
+a: Hippopotamus // hippopotamus
+
+debut
+	a->Hippopotamus('jack',3000,50)
+
+	for i allant de 0 à 20 faire // nombre de jour dans 3 semaines 21
+		for j allant de 0 à 14 faire // nombre d'heure de eat et de swim
+			a.eat()
+			for y allant de 0 à 2 faire // à chaque heure 3 swim()
+				a.swim()
+			finpour
+		finpour
+		afficher "Au jour" + i + " : " +a.Afficher_objet 
+	finpour
+Fin 
+
+
+
+
+
