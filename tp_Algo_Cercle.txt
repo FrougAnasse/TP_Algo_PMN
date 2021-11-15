@@ -1,0 +1,91 @@
+
+
+Ex3
+
+(a
+
+/*Programe Circle
+* but :  création d'une classe circle à partir d'un points
+* auteur : anasse froug
+* date : 15/11/21
+*/
+
+import class Point
+
+class Circle (point , radius)
+
+Debut
+
+	fonction area()
+	Debut
+		return radius²*π
+	fin
+
+
+	fonction containsPoint(pointAVerifier)
+	Debut
+		si ((point.x-pointAVerifier.x)²+(point.y-pointAVerifier.y)² = radius²) faire
+			return true
+		sinon
+			return false
+		finsi
+	Fin
+
+(b 	/* programme Afficher_objet
+	* but : afficher en string l'objet Circle
+	* auteur : anasse froug
+	* date : 15/11/21
+	*/
+
+	fonction Afficher_objet()
+	Debut
+		return "Ce cercle est de rayon " + radius + "et sont centre est ('" + point.GetX() + "," + point.GetY() +") 
+	Fin	
+Fin
+
+(c 
+
+/* programme test_circle
+* but : test la classe circle 
+* auteur : anasse froug
+* date : 15/11/21
+*/
+
+programme test_circle
+c1: Circle  // un cercle
+p1: Point  // le centre du cercle, un point
+p2: Point  // un point sur le plan
+
+Debut
+	p1->new Point(5,6)
+	
+	c1->new Circle(p1,6)
+
+	affiche c1.Afficher_objet
+	// affichage Ce cercle est de rayon 6 et sont centre est (5,6) 
+
+	affiche c1.area()
+	// affiche π·6² = 113.097
+
+	p2->new Point(2,3)
+	
+	si (c1.containsPoint(p2)) alors
+		affiche 'le point appartient au cercle"
+	sinon
+		affiche 'le point n'appartient pas au cercle"
+	Fin si
+	//dans notre cas (2-5)²+(6-6)²=9  or radius²=6²=36 donc affichage il n'appartient pas au cercle
+
+
+	p3->new Point(5,0)
+
+	si (c1.containsPoint(p2)) alors
+		affiche 'le point appartient au cercle"
+	sinon
+		affiche 'le point n'appartient pas au cercle"
+	Fin si
+	//dans notre cas (5-5)²+(0-6)²=6²=36  or radius²=6²=36 donc affichage il appartient au cercle
+
+	
+Fin
+
