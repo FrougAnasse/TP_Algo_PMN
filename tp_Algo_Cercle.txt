@@ -24,7 +24,7 @@ Debut
 
 	fonction containsPoint(pointAVerifier)
 	Debut
-		si ((point.x-pointAVerifier.x)²+(point.y-pointAVerifier.y)² = radius²) faire
+		si ((pointAVerifier.x-point.x)²+(pointAVerifier.y-point.y)² = radius²) faire
 			return true
 		sinon
 			return false
