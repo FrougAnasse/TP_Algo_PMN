@@ -65,17 +65,17 @@ Debut
 		
 	a->new Point(5,6)
 
-	a.Afficher_objet
+	affichage a.Afficher_objet
 	//affichage Coordonnée du point sont (5,6)
 
 	a.SetX(8)
 
-	a.Afficher_objet
+	affichage a.Afficher_objet
 	//affichage Coordonnée du point sont (8,6)
 
 	a.SetY(2)
 
-	a.Afficher_objet
+	affichage a.Afficher_objet
 	//affichage Coordonnée du point sont (8,2)
 
 	
