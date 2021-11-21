@@ -128,6 +128,29 @@ Debut
 	fin
 
 
+	fonction envoisMsg(iban_cible_msg,msg_content,user[id_Client],date_now) 
+	debut
+		bdd->connexionBdd()
+		chat->bdd.selectionTable(chat)
+
+		chat->ajoutNouveauMsg(iban_cible_msg,msg_content,user[id_Client],date_now)
+
+		bdd->DéconnexionBaseDonné()
+	fin
+
+
+	fonction afficheMsgRecut(id_client)
+	debut
+		bdd->connexionBdd()
+
+		chat->bdd.selectionTable(chat)
+
+		for i allant de chat.taille() faire
+			si chat[i].id_client=id_client alors
+				affiche : chat[i]
+			finsi
+		finsi
+	fin
 
 	
 

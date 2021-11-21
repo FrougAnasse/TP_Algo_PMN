@@ -23,8 +23,5 @@ Debut
 	
 	Fin
 
-	fonction Vérification_info(id_client,mdp){
-		
-	}
 
 Fin

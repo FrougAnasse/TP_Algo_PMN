@@ -1,0 +1,17 @@
+
+
+
+
+class chat
+Debut
+
+	fonction ajoutNouveauMsg(iban_cible_msg,msg_content,id_client,date_now)
+
+	debut
+		bdd->connexionBdd()
+		ecrireDansBasseDonne(iban_cible_msg,msg_content,id_client,date_nows)
+		bdd->DéconnexionBaseDonné()
+	fin 
+
+
+Fin

@@ -2,7 +2,7 @@
 import class baseDonne
 
 class Inscription(nom,email,photo,adresse,tel,mdp_client)
-rib : int  // rib du client
+iban : string  // iban du client
 id_client : int //id unique du client
 bdd : base de donne 
 
@@ -11,7 +11,7 @@ Debut
 	
 	
 
-	fonction inscription(nom,prenom,email,date_naissance,addresse,tel)
+	fonction inscription(nom,prenom,email,date_naissance,addresse,tel,mdp)
 	Debut
 
 		
@@ -19,16 +19,50 @@ Debut
 
 		
 		id_client->generationId(id_client)
-		rib->generationRIB()
-		mdp->generationMDP()
+		iban->generationIban()
+	
 		
-		bdd->envoisDesInformation(id_client,nom,prenom,email,addresse,tel,rib,mdp)
+		bdd->envoisDesInformation(id_client,nom,prenom,email,addresse,tel,iban,mdp)
 		
 		bdd->DéconnexionBaseDonné
-		
-
 	fin
 
+	fonction generationIban(pays)
+	iban : string //iban créer
+	Debut
+		bdd->New baseDonne()
 
+	
+		bdd->connexionBdd()
+		user-> bdd.selectionTable(user)
+
+
+
+		if(pays==france) faire
+			iban->"FR"+suiteAléatoire8Lettre()
+		sinon si pays=espagne faire
+			iban->"ES"+suiteAléatoire8Lettre()
+		sinon si pays=angleterre faire
+			iban->"AN"+suiteAléatoire8Lettre()
+		sinon si pays=russi faire
+			iban->"RU"+suiteAléatoire8Lettre()
+		sinon si pays=canada faire
+			iban->"CA"+suiteAléatoire8Lettre()
+		finsi
+
+		tantque ibanExiste(iban_virement) faire    /* l'iban doit etre unique */
+			if(pays==france) faire
+				iban->"FR"+suiteAléatoire8Lettre()
+			sinon si pays=espagne faire
+				iban->"ES"+suiteAléatoire8Lettre()
+			sinon si pays=angleterre faire
+				iban->"AN"+suiteAléatoire8Lettre()
+			sinon si pays=russi faire
+				iban->"RU"+suiteAléatoire8Lettre()
+			sinon si pays=canada faire
+				iban->"CA"+suiteAléatoire8Lettre()
+			finsi
+		fintantque
+	fin 
 
 FIN

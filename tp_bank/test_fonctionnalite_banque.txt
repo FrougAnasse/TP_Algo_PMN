@@ -53,6 +53,9 @@ Debut
 			afficher "insérer votre tel"
 			insérer : tel
 
+			afficher "insérer votre mdp"
+			insérer : mdp
+
 			inscription->new Inscription(nom,prenom,email,date_naissance,addresse,tel)
 			affichage : "inscription effectue"
 			redirection(connexion.php)
@@ -184,7 +187,6 @@ Debut
 			date_now->date(Y,M,D,h,m)
 			user->envoisMsg(iban_cible_msg,msg_content,user[id_Client],date_now) 
 
-			
 		
 		sinon
 			/* contact manager iban */
