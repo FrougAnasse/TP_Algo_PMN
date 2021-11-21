@@ -1,0 +1,30 @@
+
+import class baseDonne
+
+class connexion
+Debut
+
+	fonction connexion(id_client,mdp)
+	
+	Debut
+		bdd->New baseDonne()
+		si Vérification_info(id_client,mdp)=true alors
+			bdd->DéconnexionBaseDonné()
+			return true
+		sinon
+			bdd->DéconnexionBaseDonné()
+			return false
+		finsi
+	Fin
+
+	fonction générationSMS()
+	Debut
+		return nombreAléatoire(4) //return un nombre aléatoire de 4 chiffre
+	
+	Fin
+
+	fonction Vérification_info(id_client,mdp){
+		
+	}
+
+Fin

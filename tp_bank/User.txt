@@ -1,0 +1,134 @@
+
+
+
+class user 
+
+solde : int  //solde restant à l'utilisateur
+user[] : string // contenant les information de la table userde la base de donné
+
+tableIbanContact[] : tab string // 
+
+
+Debut
+
+	fonction ConnexionUser(id_client,mdp)
+	debut
+		
+		bdd->connexionBdd()
+		user-> bdd.selectionTable(user)
+		
+		for i allant de user.taille() faire
+			si user[i].id_client=id_client alors
+				si user[i].mdp=mdp alors
+					bdd->DéconnexionBaseDonné()
+					return user[i]
+				finsi
+			finsi
+		finsi
+		bdd->DéconnexionBaseDonné()
+		return null     //si on trouve pas d'user avec cette id et ce mods de pas on envois l'utilisateur null
+
+	fin
+
+
+	fonction addIbanContact(iban)
+	debut
+		tableIbanContact.add(iban)
+	fin
+
+	fonction ibanExiste(iban_virement)
+	debut
+		bdd->connexionBdd()
+		user-> bdd.selectionTable(user)
+		
+		for i allant de user.taille() faire
+			si user[i].iban=iban_virement alors
+				bdd->DéconnexionBaseDonné()
+				return vraix
+			finsi
+		finsi
+		bdd->DéconnexionBaseDonné()
+		return faux
+	fin
+
+	fonction ibanEnregistrer(iban_virement)
+	debut
+		si tableIbanContact.contains(iban_virement) faire
+			return true
+		finsi
+		return false
+	fin
+
+	fonction getValeurVirement(id_user,montant_virement,iban_virement)
+	debut
+
+		iban_user->null;
+
+
+		bdd->connexionBdd()
+		user-> bdd.selectionTable(user)
+		table_des_virement->bdd.selectionTable(virement)  //table des historique es virement
+
+		for i allant de user.taille() faire
+			si user[i].id_client=id_client alors
+				iban_user->user[i].iban
+			finsi
+		finsi
+		
+		pays_iban_user ->  iban_user.strl(2) //prend les premier charactére
+		
+		pays_iban_cible-> iban_virement.strl(2)
+
+		si(pays_iban_cible = pays_iban_user) faire   //virement nationnal pas de taxe
+
+			table_des_virement->ajoutNouveauVirement(iban_user,iban_virement,montant_virement,'nationnal')  //on ajoute le virment dans l'historique
+			bdd->DéconnexionBaseDonné()
+			return montan_virement
+		finsi
+		table_des_virement->ajoutNouveauVirement(iban_user,iban_virement,montant_virement,'internationnal')  //on ajoute le virment dans l'historique
+		bdd->DéconnexionBaseDonné()
+		return montant_virement * 0.90      //virement internationnal taxe de 10%
+	fin
+
+
+	fontction faireVirement(id_client,iban_virement,montant_virement)
+	debut
+		iban_user->null;
+
+
+		bdd->connexionBdd()
+		user-> bdd.selectionTable(user)
+
+		for i allant de user.taille() faire
+			si user[i].id_client=id_client alors
+				user[i]->setSolde(user[i]->getSolde()-montant_virement)
+			finsi
+
+			si user[i].iban=iban_virement alors
+				user[i]->setSolde(user[i]->getSolde()+getValeurVirement(id_user,montant_virement,iban_virement))
+			finsi
+		finsi
+		bdd->DéconnexionBaseDonné()
+	fin
+	
+	
+
+	fonction afficherHistoriqueVirement(iban_user){
+	debut
+
+		bdd->connexionBdd()
+		table_des_virement->bdd.selectionTable(virement)  //table des historique es virement
+
+		for i allant de table_des_virement.taille() faire
+			si table_des_virement[i].iban=iban_user alors
+				affiche : table_des_virement[i]
+			finsi
+		finsi
+		bdd->DéconnexionBaseDonné()
+	fin
+
+
+
+	
+
+Fin

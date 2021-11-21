@@ -1,0 +1,210 @@
+
+import class connexion
+import class inscription
+
+
+
+
+programme test_fonctionnaliteBanque
+
+nom : string //nom du nouvelle utilisateur
+prenom : string // prenom du nouvelle utilisateur
+email : string // email du nouvelle utilisateur
+date_naissance : string // date_naissance du nouvelle utilisateur
+tel : int // tel du nouvelle utilisateur
+
+
+
+
+position_user: string  //paramétre permante de savoir sur qu'elle page on se trouve actuellement à ne pas implémenter 
+user_session_id : string //paramétre session id de l'utilisateur actuel
+user_session_mdp: string //paramétre session mdp de l'utilisateur actuel
+user : tableau // information client
+
+
+
+iban_virement : string // iban du compte cible pour un virement
+montant_virement : int // valeur du virement à envoyer
+
+
+
+iban_cible_msg : string //iban de la personne qui doit recevoir le msg
+msg_content : string // message à envoyer 
+date_now : date // date format (y,m,d,h,m)
+
+Debut 
+	/* partie connexion et inscription */
+	
+	si user!=null faire
+		si  position_user=inscription.php     //position_user dans la page inscription faire
+			//via formulaire
+			afficher "insérer votre nom"
+			insérer : nom
+
+			afficher "insérer votre prenom"
+			insérer : prenom
+
+			afficher "insérer votre email"
+			insérer : email
+
+			afficher "insérer votre date_naissance"
+			insérer : date_naissance
+		
+			afficher "insérer votre tel"
+			insérer : tel
+
+			inscription->new Inscription(nom,prenom,email,date_naissance,addresse,tel)
+			affichage : "inscription effectue"
+			redirection(connexion.php)
+
+		finsi
+		sinon si position_user=connexion.php    //si user dans la page connection
+			//via formulaire
+			afficher "insérer votre identifiant"
+			insérer : id_client
+
+
+			afficher "insérer mots de passe"
+			inserer : mdp
+
+			user->ConnexionUser(id_client,mdp)
+
+			tantque user=null faire
+				afficher : "mauvais mots de passe ou mauvais identifiant" 
+				afficher "insérer votre identifiant"
+				insérer : id_client
+				afficher "insérer mots de passe"
+				inserer : mdp
+				user->ConnexionUser(id_client,mdp)
+			fintantque
+
+			sms -> connexion.generationCodeSms()   /* authentification 2fa
+			wait(EnvoisDeLauthentificationSMS(sms))
+
+			afficher "insérer code SMS"
+			inserer : code_sms
+
+			si code_sms = sms faire
+				user->new User(id_Client,mdp)
+				afficher : "connexion réussi"
+				redirection(mon_compte.php)
+			finsi
+		finsi
+	sinon 
+
+		redirection(mon_compte.php)
+	finsi
+
+
+
+
+
+	/*    Virement nationnal et internation + contact manager iban   */
+	
+	
+		
+	si  position_user=mon_compte.php && user!=null faire
+		affiche : user->affichageInfoCompte()
+		affiche : 'cliquer ici pour faire un virement'
+		affiche : 'cliquer ici pour voir vos message'
+		
+	sinon
+		redirection(connexion.php)
+	finsi
+
+	si position_user=page_virement faire
+
+		affiche : user->afficherHistoriqueVirement(user[iban])  //on affiche l'historique des virement
+
+		/* pour faire un virement il faut avant tout que l'utilisateur ajouter à son tableau contact l'iban de la cible */
+		affiche : 'renter l'iban de votre contact'
+		insérer : iban_virement
+
+		si ! user->ibanExiste(iban_virement) faire
+			redirection(page_virement)
+		sinon
+			si user->ibanEnregistrer(iban_virement) faire
+				affiche : 'votre solde ' + user.getSolde()
+				affiche : 'combien voulais vous envoyé à votre contact'
+				insére : montant_virement
+
+				si user.getSolde()<montant_virement faire
+					affiche : 'solde insufisant'
+					redirection(mon_compte.php)
+				finsi
+				
+				affiche : 'le montant que receveras la cible est de ' + getValeurVirement(user[id_client] ,montant_virement,iban_virement)
+				/* différentes taxes à apliquer si virement national ou internationnal */ 
+
+				affiche : 'en attente de validation du virement, false si annulation , true si validation '
+				insere : validation_virement
+
+				si  validation_virement faire
+					user->faireVirement(user[id_client],iban_virement,montant_virement)
+					affiche : 'virement effectué'
+				sinon
+					affiche : 'virement annulé'
+				finsi
+				redirection(mon_compte.php)
+			sinon
+
+				/* contact manager iban */
+				affiche : 'il faut enregistrer l'iban en tant que contact'
+				affiche : 'en attente de validation du virement, false si annulation , true si validation '
+				insere : add_contact
+
+				si add_contact faire
+					user->addIbanContact(iban)
+					affiche : 'utilisateur ajouter, actualisation)
+					redirection(page_virement)
+				sinon
+					affiche : 'iban non ajouter'
+					redirection(page_virement)
+				finsi
+			finsi
+		finsi
+	finsi
+
+
+	/* fonction chat */
+
+	si  position_user=mes_message.php && user!=null faire
+		afficher : user->afficheMsgRecut(user[id])
+	
+		afficher : 'selectionner l'iban d'un utilisateur enregistrer'
+		insere : iban_cible_msg
+
+		si user->ibanEnregistrer(iban_virement) faire
+		
+			affiche : 'écrivez le texte '
+			insere : msg_content
+
+			affiche : 'appuyer sur ce bouton pour envois le msg'
+
+			date_now->date(Y,M,D,h,m)
+			user->envoisMsg(iban_cible_msg,msg_content,user[id_Client],date_now) 
+
+			
+		
+		sinon
+			/* contact manager iban */
+				affiche : 'il faut enregistrer l'iban en tant que contact'
+				
+				insere : add_contact
+
+				si add_contact faire
+					user->addIbanContact(iban)
+					affiche : 'utilisateur ajouter, actualisation)
+					redirection(mes_message.php)
+				sinon
+					affiche : 'iban non ajouter'
+					redirection(mes_message.php)
+				finsi
+		finsi
+
+	finsi
+
+
+
+Fin
+

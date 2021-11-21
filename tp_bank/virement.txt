@@ -1,0 +1,17 @@
+
+
+
+
+
+class virement
+Debut
+
+	fonction ajoutNouveauVirement(iban_user,iban_virement,montant_virement,'internationnal')
+	debut
+		bdd->connexionBdd()
+		ecrireDansBasseDonne(iban_user,iban_virement,montant_virement,'internationnal')
+		bdd->DéconnexionBaseDonné()
+	fin 
+
+
+Fin

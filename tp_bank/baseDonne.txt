@@ -1,0 +1,13 @@
+
+
+class baseDonne
+
+Debut
+
+	fonction envoisDesInformation(id_client,nom,email,photo,addresse,tel,rib)
+	Debut
+		
+		
+		
+	Fin
+Fin

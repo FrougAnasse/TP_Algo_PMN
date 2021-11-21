@@ -1,0 +1,34 @@
+
+import class baseDonne
+
+class Inscription(nom,email,photo,adresse,tel,mdp_client)
+rib : int  // rib du client
+id_client : int //id unique du client
+bdd : base de donne 
+
+Debut
+
+	
+	
+
+	fonction inscription(nom,prenom,email,date_naissance,addresse,tel)
+	Debut
+
+		
+		bdd->New baseDonne()
+
+		
+		id_client->generationId(id_client)
+		rib->generationRIB()
+		mdp->generationMDP()
+		
+		bdd->envoisDesInformation(id_client,nom,prenom,email,addresse,tel,rib,mdp)
+		
+		bdd->DéconnexionBaseDonné
+		
+
+	fin
+
+
+
+FIN
