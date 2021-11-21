@@ -3,7 +3,11 @@ import class connexion
 import class inscription
 
 
-
+/**programme test_fonctionnaliteBanque
+*but: simulation de l'utilisation de l'application par un utilisateur
+*auteur:  anasse froug
+*date : 21/11/2021
+*/
 
 programme test_fonctionnaliteBanque
 
@@ -12,7 +16,7 @@ prenom : string // prenom du nouvelle utilisateur
 email : string // email du nouvelle utilisateur
 date_naissance : string // date_naissance du nouvelle utilisateur
 tel : int // tel du nouvelle utilisateur
-
+pays : string // pays de l'utilisateur
 
 
 
@@ -56,7 +60,10 @@ Debut
 			afficher "insérer votre mdp"
 			insérer : mdp
 
-			inscription->new Inscription(nom,prenom,email,date_naissance,addresse,tel)
+			afficher "insérer votre pays"
+			insérer : pays
+
+			inscription->new Inscription(nom,prenom,email,date_naissance,addresse,tel,pays)
 			affichage : "inscription effectue"
 			redirection(connexion.php)
 

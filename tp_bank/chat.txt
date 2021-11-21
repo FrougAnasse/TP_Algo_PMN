@@ -5,6 +5,11 @@
 class chat
 Debut
 
+	/*
+	*but: ajout des message dans la table chat 
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 	fonction ajoutNouveauMsg(iban_cible_msg,msg_content,id_client,date_now)
 
 	debut

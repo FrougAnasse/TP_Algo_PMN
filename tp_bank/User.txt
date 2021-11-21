@@ -11,6 +11,11 @@ tableIbanContact[] : tab string //
 
 Debut
 
+	/** fonction ConnexionUser   
+	*but: renvoye un tableau des informations d'un utilisateur 
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 	fonction ConnexionUser(id_client,mdp)
 	debut
 		
@@ -31,10 +36,23 @@ Debut
 	fin
 
 
+	/*
+	*but: ajout d'un contact dans le tableau de contact
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
+
 	fonction addIbanContact(iban)
 	debut
 		tableIbanContact.add(iban)
 	fin
+
+
+	/*
+	*but: Vérifier l'existance d'un iban 
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 
 	fonction ibanExiste(iban_virement)
 	debut
@@ -51,6 +69,12 @@ Debut
 		return faux
 	fin
 
+	/*
+	*but: Vérifier l'existance d'un iban enregistré
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
+
 	fonction ibanEnregistrer(iban_virement)
 	debut
 		si tableIbanContact.contains(iban_virement) faire
@@ -58,6 +82,12 @@ Debut
 		finsi
 		return false
 	fin
+
+	/*
+	*but: retourne la valeur d'un virement et l'ajoute dans l'historique des virement
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 
 	fonction getValeurVirement(id_user,montant_virement,iban_virement)
 	debut
@@ -91,6 +121,11 @@ Debut
 	fin
 
 
+	/*
+	*but: applique le virement entre 2 utilisateurs
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 	fontction faireVirement(id_client,iban_virement,montant_virement)
 	debut
 		iban_user->null;
@@ -113,6 +148,11 @@ Debut
 	
 	
 
+	/*
+	*but: affiche l'historique des virements 
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 	fonction afficherHistoriqueVirement(iban_user){
 	debut
 
@@ -127,7 +167,11 @@ Debut
 		bdd->DéconnexionBaseDonné()
 	fin
 
-
+	/*
+	*but: Envois des message à quelqu'un  
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 	fonction envoisMsg(iban_cible_msg,msg_content,user[id_Client],date_now) 
 	debut
 		bdd->connexionBdd()
@@ -139,6 +183,11 @@ Debut
 	fin
 
 
+		/*
+	*but: affiche l'historique des message reçu par un utilisateur
+	*auteur:  anasse froug
+	*date : 21/11/2021
+	*/
 	fonction afficheMsgRecut(id_client)
 	debut
 		bdd->connexionBdd()
